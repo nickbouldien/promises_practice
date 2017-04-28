@@ -14,21 +14,21 @@
  //    }).then(function(body) {
  //        console.log(body);
  //    });
+
  app.get('/', function(request, response) {
 
-
-//http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC
-  fetch('https://github.com/')
+//
+  fetch('http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC')
       .then(function(res) {
           return res.text();
         }).then(function(body) {
-          let gifs = body;
+          let gifs = JSON.parse(body);
           //console.log(body);
           //console.log(gifs);
-          response.send(gifs);
+          response.render('home', {image: gifs.data[0].images.fixed_height.url});
         })
         .catch(err => res.send('had an error'))
-      //response.send( gifs);
+
       //  response.render('home', gifs); // send/append gifs to the page
  });
 
@@ -38,7 +38,6 @@ app.listen(3000, function() {
 
 
 
-  // <img src="<%= gifs %>"></img>
 //<img src=" <%= image %> " alt="">
 //<%= gifs %>
 
