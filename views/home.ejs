@@ -8,7 +8,10 @@
 
     <p>for loop (for all images/gifs)???</p>
 
-    <img src="<%= image %>"></img>
+
+    <% for(key in myObject) {  %>
+       <img src=" <%= myObject[key].value%>"></img>
+    <% } %>
 
   </body>
 </html>

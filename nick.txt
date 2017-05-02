@@ -1,0 +1,60 @@
+let express = require('express')
+let app = express()
+let fsPromise = require('fs-promise')
+let fs = require('fs')
+let fetch = require('node-fetch')
+//let asciify = require('asciify-promise')
+//
+app.set('view engine','ejs')
+
+
+app.get('/', function(request, response) {
+
+ fetch('http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC')
+   .then(function(res) {
+       return res.text();
+     }).then(function(body) {
+       let gifs = JSON.parse(body);
+       //console.log(body);
+       //console.log(gifs);
+       //let i = 0;  // for loop where?? to loop through the images
+
+       response.render('home', {image: gifs.data[0].images.fixed_height.url});
+     })
+     .catch(err => res.send('had an error'))
+
+     //  response.render('home', gifs); // send/append gifs to the page
+});
+
+app.listen(3000, function() {
+ console.log('listening on 3000');
+})
+
+//<img src="<%= gifs.data[i].images.fixed_height.url %>"></img>
+
+// <% for(let i=0; i < 10; i++) { %>
+//
+//   <img src="<%= image %>"></img>
+//
+// <% } %>
+
+
+  //  <img src="<%= image %>"></img>
+
+
+//<img src=" <%= image %> " alt="">
+//<%= gifs %>
+
+// let nick = fetch('http://jsonplaceholder.typicode.com/posts/1')
+//    .then(function(response){
+//        return response.json();
+//    })
+
+
+
+// fetch('https://github.com/')
+//    .then(function(res) {
+//        return res.text();
+//    }).then(function(body) {
+//        console.log(body);
+//    });

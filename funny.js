@@ -15,7 +15,7 @@
  //        console.log(body);
  //    });
 
- app.get('/', function(request, response) {
+ app.all('/', function(request, response) {
 
 //
   fetch('http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC')
@@ -25,7 +25,15 @@
           let gifs = JSON.parse(body);
           //console.log(body);
           //console.log(gifs);
-          response.render('home', {image: gifs.data[0].images.fixed_height.url});
+          let myObject = {};
+          for(let i=0; i< 10; i++){
+            myObject[i] =  gifs.data[i].images.fixed_height.url
+          }
+          console.log(myObject[0]);
+          console.log(myObject);
+          //{image: gifs.data[0].images.fixed_height.url}
+          // {prop: value}
+          response.render('home', myObject);
         })
         .catch(err => res.send('had an error'))
 
@@ -35,8 +43,16 @@
 app.listen(3000, function() {
   console.log('listening on 3000');
 })
-
-
+//
+// let myObject = {};
+// for(let i=0; i< 10; i++){
+//   myObject[i] =  gifs.data[i].images.fixed_height.url
+// }
+// console.log(myObject[0]);
+// console.log(myObject);
+// //{image: gifs.data[0].images.fixed_height.url}
+//
+// response.render('home', myObject);
 
 //<img src=" <%= image %> " alt="">
 //<%= gifs %>
